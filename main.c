@@ -3,15 +3,8 @@
 #include<locale.h>
 
 
-/* ***** Ponderação N1 ***** */
-    float peso_nota1 (float n1);
-
-/* ***** Ponderação N2 ***** */
-    float peso_nota2 (float n2, float aps);
-
 /* ***** Cálcula média ***** */
     float average (float n1, float n2, float Sub);
-    
 
 /* ***** Verifica Substutiva ***** */
     float verif_sub (float n1, float n2, float M);
@@ -57,7 +50,7 @@
                 scanf("%f",&notaN1[cont]);
                 system("cls");
 
-                N1 += notaN1[cont]/Tam_Vetor;
+                N1 += (notaN1[cont]/Tam_Vetor)*0.4;
 
                 if(notaN1[cont]<0||notaN1[cont]>10)
                 {
@@ -74,6 +67,7 @@
             
             printf("\nQuanto tirou na N2? ");
             scanf("%f",&N2);
+            N2 *= 0.6;
             system("cls");
 
             if (N2<0||N2>9)
@@ -88,6 +82,7 @@
 
             printf("\nQuanto tirou na APS? ");
             scanf("%f",&APS);
+            N2+=APS;
             system("cls");
 
             if(APS<0||APS>1)
@@ -98,11 +93,6 @@
 
         } while (APS<0||APS>1);
         
-    //Chamada de Funcão peso_nota1
-        N1 = peso_nota1(N1);
-
-    //Chamada de Funcão peso_nota2
-        N2 = peso_nota2(N2,APS);
 
     //Chamada de Funcão average
         Media = average(N1,N2,S);
@@ -134,21 +124,6 @@
     }
 /* ********* FIM DO MAIN PRINCIPAL ********* */    
 
-    //Corpo de Funcão peso_nota1
-    float peso_nota1 (float n1)
-    {
-        const float PesoN1=0.4;
-        n1 *= PesoN1;
-        return (n1);
-    }
-
-    //Corpo de Funcão peso_nota2
-    float peso_nota2 (float n2, float aps)
-    {
-        const float PesoN2=0.6;
-        n2 = (n2 + aps) * PesoN2;
-        return (n2);
-    }
 
     //Corpo de Funcão average
     float average (float n1, float n2, float Sub)
@@ -169,7 +144,7 @@
     //Corpo de Funcão verif_sub
     float verif_sub (float n1, float n2, float M)
     {        
-        float A6=0,aps=0;
+        float A6=0;
         char check;
         imprime_media(M);
         printf("\nMédia final inferior a necessária. ");
@@ -190,7 +165,6 @@
             break;
         }
 
-        A6 = peso_nota2(A6,aps);
         M = average(n1,n2,A6);
         
         return(M);
