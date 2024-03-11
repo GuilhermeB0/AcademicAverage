@@ -3,143 +3,101 @@
 #include<locale.h>
 
 
-/* ***** CÃ¡lcula mÃ©dia ***** */
-    float average (float n1, float n2, float Sub);
+    float CalculaMedia (float n1, float n2, float aps, int tam_vetor) {
+        
+        float media;
+        n1=(n1/tam_vetor)*0.4;
+        n2=(n2+aps)*0.6;
 
-/* ***** Verifica Substutiva ***** */
-    float verif_sub (float n1, float n2, float M);
+        media=n1+n2;
 
-/* ***** Imprimir mÃ©dia ***** */
-    void imprime_media(float media)
-    {
         system("cls");
-        printf("\nSua mÃ©dia foi %.2f\n", media);
+        printf("Sua média foi %.2f\n", media);
+
+        return(media);
     }
 
-/* ********* MAIN PRINCIPAL ********* */
+    /* MAIN PRINCIPAL */
     int main(void) {
         
         system("cls");
         setlocale(LC_ALL,"Portuguese");
 
-        int cont,Tam_Vetor; //Contador e MÃ¡ximo de iteraÃ§Ãµes
+        int cont,Tam_Vetor; //Contador e Máximo de iterações
         float notaN1[4]; //Armazar as notas de atividade N1
-        float N1,N2,S=0,Media,APS; //Recebe notas 
+        float N1,N2,APS;
+        float Media;
+        char sub;
 
-    //Recebe a quantidade de atividades propostas para compor a N1
-        do {
-
-            printf("\nQuantas atividades foram aplicadas na N1? ");
-            printf("\nNÃºmero mÃ¡ximo de atividades permitido Ã© 4.");
-            scanf("%i",&Tam_Vetor);
-            printf("\n");
-
-        } while(Tam_Vetor<0||Tam_Vetor>4);
-        
-    //Recebe as notas que compÃµe a N1
-        for (cont=0;cont<Tam_Vetor;cont++)
-        {
-            do {
-                
-                printf("Qual foi sua nota na atividade A%i? De 0 a 10", cont+1);
-                scanf("%f",&notaN1[cont]);
-                system("cls");
-
-                N1 += (notaN1[cont]/Tam_Vetor)*0.4;
-
-            } while (notaN1[cont]<0||notaN1[cont]>10);
-        }
-    
-    //Recebe a nota da N2 e APS
+        //Recebe a quantidade de atividades propostas para compor a N1
         do {
             
-            printf("\nQual foi sua nota na N2? De 0 a 9");
+            printf("Número máximo de atividades permitido é 4.");
+            printf("\nQuantas atividades foram aplicadas na N1? ");
+            scanf("%i",&Tam_Vetor);
+            printf("\n");
+            system("cls");
+            
+        } while(Tam_Vetor<0||Tam_Vetor>4);
+        
+        //Recebe as notas que compõe a N1
+        for (cont=0;cont<Tam_Vetor;cont++) {
+            do {
+                
+                printf("De 0 a 10. Qual foi sua nota na atividade A%i? ", cont+1);
+                scanf("%f",&notaN1[cont]);
+                system("cls");
+                
+            } while (notaN1[cont]<0||notaN1[cont]>10);
+        }
+
+        //Soma as notas da N1
+        for (cont=0;cont<Tam_Vetor;cont++) {
+            N1+=notaN1[cont];
+        }
+    
+        //Recebe a nota da N2
+        do {
+            
+            printf("De 0 a 9. Qual foi sua nota na N2? ");
             scanf("%f",&N2);
-            N2 *= 0.6;
             system("cls");
 
         } while (N2<0||N2>9);
-        
+
+        //Recebe a nota da APS
         do {
 
-            printf("\nQual foi sua nota na APS? Entre 0 e 1");
+            printf("Entre 0 e 1. Qual foi sua nota na APS? ");
             scanf("%f",&APS);
-            N2+=APS;
             system("cls");
 
         } while (APS<0||APS>1);
         
+        //
+        Media = CalculaMedia(N1,N2,APS,Tam_Vetor);
 
-    //Chamada de FuncÃ£o average
-        Media = average(N1,N2,S);
-    
-    //Confere se a mÃ©dia atingida Ã© supior ou inferior a necessÃ¡ria + VericaÃ§Ã£o de Substutiva
-        if (Media>=6)
-        {
-            imprime_media(Media);
-            printf("\nParabÃ©ns! VocÃª atingiu a mÃ©dia exigida para aprovaÃ§Ã£o!\n");
-            printf("\n");   
-        } else 
-            {
-                Media = verif_sub(N1,N2,Media);
-                
-                if (Media>=6)
-                {
-                    imprime_media(Media);
-                    printf("\nParabÃ©ns! VocÃª atingiu a mÃ©dia exigida para aprovaÃ§Ã£o!");
-                    printf("\n");     
-                } else 
-                    {
-                        imprime_media(Media);
-                        printf("\nInfelizmente, VocÃª nÃ£o atingiu a mÃ©dia exigida para aprovaÃ§Ã£o.");
-                        printf("\n");
-                    }
+        if (Media>=6) {
+            printf("\nParabéns! Você atingiu a média exigida para aprovação!\n\n");  
+        } else {
+            printf("\nMédia final inferior a necessária. ");
+            printf("Realizou a substitutiva? (S/N): ");
+            scanf(" %c",&sub);
+
+            if (sub=='S'||sub=='s') {
+                printf("\nDe 0 a 10. Qual foi sua nota na substitutiva? ");
+                scanf("%f",&N2);
+
+                Media = CalculaMedia(N1,N2,APS,Tam_Vetor);
+
+                if (Media>=6) {
+                    printf("\nParabéns! Você atingiu a média exigida com a substitutiva!\n\n"); 
+                }
+            } else {
+                printf("\nInfelizmente, você não atingiu a média exigida para aprovação.\n\n");
             }
+        }
 
         return 0;
     }
-/* ********* FIM DO MAIN PRINCIPAL ********* */    
-
-
-    //Corpo de FuncÃ£o average
-    float average (float n1, float n2, float Sub)
-    {   
-        float MediaF;
-        if (Sub==0)
-        {
-            MediaF = n1 + n2;
-            return(MediaF);
-        } else  
-            {
-                n2=Sub;
-                MediaF = n1 + n2; 
-                return(MediaF);
-            }  
-    }
-
-    //Corpo de FuncÃ£o verif_sub
-    float verif_sub (float n1, float n2, float M)
-    {        
-        float A6=0;
-        char check;
-        imprime_media(M);
-        printf("\nMÃ©dia final inferior a necessÃ¡ria. ");
-        printf("Realizou a substutiva? (S/N): ");
-        scanf(" %c",&check);
-
-        switch (check)
-        {
-        case 's':
-            printf("\nQuanto tirou? ");
-            scanf("%f",&A6);
-            break;
-        
-        case 'n':
-            A6=0;
-            break;
-        }
-
-        M = average(n1,n2,A6);
-        
-        return(M);
-    }
+    /* ********* FIM DO MAIN PRINCIPAL ********* */
