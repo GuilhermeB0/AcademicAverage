@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include<locale.h>
 
-/* ***** Soma atividades N1 ***** */
-    float soma_N1 (float v[4]);
 
 /* ***** Ponderação N1 ***** */
     float peso_nota1 (float n1);
@@ -59,6 +57,8 @@
                 scanf("%f",&notaN1[cont]);
                 system("cls");
 
+                N1 += notaN1[cont]/Tam_Vetor;
+
                 if(notaN1[cont]<0||notaN1[cont]>10)
                 {
                     printf("Digite a nota de 0 a 10.\n");
@@ -68,8 +68,6 @@
             } while (notaN1[cont]<0||notaN1[cont]>10);
         }
     
-    //Chamada de Funcão soma_N1
-        N1 = soma_N1(notaN1);
     
     //Recebe a nota da N2 e APS
         do {
@@ -135,20 +133,6 @@
         return 0;
     }
 /* ********* FIM DO MAIN PRINCIPAL ********* */    
-
-
-    //Corpo de Funcão soma_N1
-    float soma_N1 (float v[4])
-    {
-        int i; 
-        float ResultN1=0;
-        for (i=0;i<4;i++) 
-        {
-            ResultN1 += v[i];
-        }
-        ResultN1 /=4;
-        return (ResultN1);
-    }
 
     //Corpo de Funcão peso_nota1
     float peso_nota1 (float n1)
