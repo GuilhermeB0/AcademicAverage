@@ -153,7 +153,7 @@
     //Corpo de Funcão peso_nota1
     float peso_nota1 (float n1)
     {
-        const PesoN1=0.4;
+        const float PesoN1=0.4;
         n1 *= PesoN1;
         return (n1);
     }
@@ -161,7 +161,7 @@
     //Corpo de Funcão peso_nota2
     float peso_nota2 (float n2, float aps)
     {
-        const PesoN2=0.6;
+        const float PesoN2=0.6;
         n2 = (n2 + aps) * PesoN2;
         return (n2);
     }
