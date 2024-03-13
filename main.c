@@ -17,7 +17,7 @@
         return(media);
     }
 
-    /* MAIN PRINCIPAL */
+    /*MAIN PRINCIPAL*/
     int main(void) {
         
         system("cls");
@@ -74,20 +74,23 @@
 
         } while (APS<0||APS>1);
         
-        //
         Media = CalculaMedia(N1,N2,APS,Tam_Vetor);
 
         if (Media>=6) {
             printf("\nParabéns! Você atingiu a média exigida para aprovação!\n\n");  
         } else {
-            printf("\nMédia final inferior a necessária. ");
+            // Se a média for inferior a 6, verifica se o aluno realizou a substitutiva
+            printf("\nMédia final inferior a necessária. "); 
             printf("Realizou a substitutiva? (S/N): ");
             scanf(" %c",&sub);
 
+            // Se realizou a substitutiva, o valor de N2 passa a ser a nota da substitutiva
             if (sub=='S'||sub=='s') {
                 printf("\nDe 0 a 10. Qual foi sua nota na substitutiva? ");
                 scanf("%f",&N2);
-
+                
+                //Valor de APS zerado, pois a substitutiva sobrescreve a N2 e APS
+                APS=0;
                 Media = CalculaMedia(N1,N2,APS,Tam_Vetor);
 
                 if (Media>=6) {
@@ -100,4 +103,4 @@
 
         return 0;
     }
-    /* ********* FIM DO MAIN PRINCIPAL ********* */
+    /*FIM DO MAIN*/
